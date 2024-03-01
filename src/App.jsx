@@ -31,7 +31,7 @@ function App() {
 
   return (
     <>
-      <div style={{ display: "flex", flexFlow: "column" }}>
+      <div style={{ display: "flex", flexFlow: "column", height: "100vh" }}>
         <section style={{ padding: "35px 0" }}>
           <div className="credit-card-wrap">
             <div className="mk-icon-world-map"></div>
