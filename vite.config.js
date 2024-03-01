@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: "prompt",
       includeAssets: ["favicon.ico", "apple-touch-icon.png"],
       manifest: {
-        name: "My Awesome App",
-        short_name: "MyApp",
+        name: "Go.help",
+        short_name: "POC sobre app do go.help",
         description: "My Awesome App description",
         theme_color: "#ffffff",
         icons: [
