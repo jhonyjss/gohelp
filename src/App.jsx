@@ -1,14 +1,34 @@
 import "./App.css";
+import { useEffect, useState } from "react";
+
 function App() {
-  let deferredPrompt = null;
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-  window.addEventListener("beforeinstallprompt", (event) => {
-    // Prevent the default browser install prompt
-    event.preventDefault();
+  useEffect(() => {
+    console.log(isIOS);
 
-    // Stash the event so it can be triggered later
-    deferredPrompt = event;
-  });
+    const handleBeforeInstallPrompt = (event) => {
+      // Prevent the default browser install prompt
+      event.preventDefault();
+
+      // Stash the event so it can be triggered later
+      setDeferredPrompt(event);
+    };
+
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+
+    // Check if the app is installed
+    if (window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true) {
+      setIsInstalled(true);
+    }
+
+    // Cleanup event listener
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    };
+  }, []);
 
   const handleInstallClick = () => {
     // Trigger the deferredPrompt to show the install prompt
@@ -24,7 +44,6 @@ function App() {
         }
 
         // Reset the deferredPrompt
-        deferredPrompt = null;
       });
     }
   };
@@ -65,11 +84,22 @@ function App() {
             </div>
           </div>
         </section>
-        <section>
-          <button onClick={handleInstallClick} className="custom-install-button">
-            Install App
-          </button>
-        </section>
+        {!isInstalled && !isIOS && (
+          <section>
+            <button onClick={handleInstallClick} className="custom-install-button">
+              Instalar Go.help
+            </button>
+          </section>
+        )}
+        {isIOS && !isInstalled && (
+          <div className="bottom mobile">
+            <section className="section-container">
+              Para obter a carteirinha do Go.Help no seu iPhone: clique em{" "}
+              <img src="/apple-icon.png" width="24" alt="" style={{ position: "relative", top: "5px" }} /> e adicione à
+              sua tela inicial
+            </section>
+          </div>
+        )}
       </div>
     </>
   );
