@@ -24,7 +24,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Adjust the alpha (last parameter) for opacity */
+  background: rgba(0, 0, 0, 0.3); /* Adjust the alpha (last parameter) for opacity */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,13 +77,13 @@ body {
 .credit-card-wrap {
   top: 50%;
   left: 50%;
-  width: 450px;
-  height: 285px;
+  width: 80%; /* Use a percentage instead of fixed pixels */
+  max-width: 450px; /* Add a max-width to limit the width on larger screens */
+  height: auto; /* Allow the height to adjust based on content */
   position: fixed;
   border-radius: 20px;
   background: #5d4157;
-  margin-left: -225px;
-  margin-top: -142.5px;
+  transform: translate(-50%, -50%); /* Use translate to center the element */
   background: -webkit-linear-gradient(to left, #5d4157, #a8caba);
   background: linear-gradient(to left, #5d4157, #a8caba);
   box-shadow: 2px 2px rgba(0, 0, 0, 0.4);
@@ -202,12 +202,19 @@ body {
   bottom: -10px;
   position: relative;
 }
-.credit-card-wrap .footer {
-  left: 30px;
-  right: 30px;
-  bottom: 30px;
-  position: absolute;
-}
-.credit-card-wrap .footer .pull-left {
-  width: 70%;
+
+@media (max-width: 768px) {
+  .credit-card-wrap {
+    width: 90%; /* Adjust the width for smaller screens */
+  }
+  .credit-card-number,
+  .credit-author {
+    font-size: 16px !important;
+  }
+  .credit-card-wrap .footer {
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+    position: absolute;
+  }
 }
