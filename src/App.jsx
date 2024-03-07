@@ -54,11 +54,11 @@ function App() {
     <>
       <section className="container mx-auto px-4 h-screen flex-center">
         <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-          <div className="flex items-end justify-center bg-white min-h-[399px] w-[80%] rounded-lg shadow-lg overflow-hidden">
+          <div className="flex items-end justify-center bg-white min-h-[399px] w-full rounded-lg shadow-lg overflow-hidden">
             <img src="./america_back.png" className="w-full max-h-full object-cover" alt="" />
           </div>
 
-          <div className="flex items-end justify-center bg-white min-h-[399px] w-[80%] rounded-lg shadow-lg overflow-hidden">
+          <div className="flex items-end justify-center bg-white min-h-[399px] w-full rounded-lg shadow-lg overflow-hidden">
             <img src="./america_front.png" className="w-full max-h-full object-cover" alt="" />
           </div>
         </ReactCardFlip>
