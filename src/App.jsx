@@ -1,7 +1,9 @@
 import "./App.css";
 import { useEffect, useState } from "react";
+import ReactCardFlip from "react-card-flip";
 
 function App() {
+  const [isFlipped, setFlipped] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isInstalled, setIsInstalled] = useState(false);
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -50,57 +52,36 @@ function App() {
 
   return (
     <>
-      <div style={{ display: "flex", flexFlow: "column", height: "100vh" }}>
-        <section style={{ padding: "35px 0" }}>
-          <div className="credit-card-wrap">
-            <div className="mk-icon-world-map"></div>
-            <div className="credit-card-inner">
-              <header className="header">
-                <div className="credit-logo">
-                  <div>
-                    <span className="txt">
-                      <img src="/icon.png" alt="" width={40} height={40} />
-                    </span>
-                    <span className="text">GO.HELP</span>
-                  </div>
-                </div>
-              </header>
-              <br />
-              <br />
-              <br />
-              <br />
-              <div className="credit-font credit-card-number">4716 6109 5211 3010</div>
-              <footer className="footer">
-                <div className="clearfix">
-                  <div className="pull-left">
-                    <div className="credit-card-date"></div>
-                    <div className="credit-font credit-author">FULANO ONORIO SOUZA</div>
-                  </div>
-                  <div className="pull-right">
-                    <div className="mk-icon-visa"></div>
-                  </div>
-                </div>
-              </footer>
-            </div>
+      <section className="container mx-auto px-4 h-screen flex-center">
+        <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+          <div className="flex items-end justify-center bg-white min-h-[399px] w-[80%] rounded-lg shadow-lg overflow-hidden">
+            <img src="./america_back.png" className="w-full max-h-full object-cover" alt="" />
           </div>
+
+          <div className="flex items-end justify-center bg-white min-h-[399px] w-[80%] rounded-lg shadow-lg overflow-hidden">
+            <img src="./america_front.png" className="w-full max-h-full object-cover" alt="" />
+          </div>
+        </ReactCardFlip>
+        <button className="bg-indigo-300 p-4" onClick={() => setFlipped(!isFlipped)}>
+          FLIP
+        </button>
+      </section>
+      {!isInstalled && !isIOS && (
+        <section>
+          <button onClick={handleInstallClick} className="custom-install-button">
+            Instalar Go.help
+          </button>
         </section>
-        {!isInstalled && !isIOS && (
-          <section>
-            <button onClick={handleInstallClick} className="custom-install-button">
-              Instalar Go.help
-            </button>
+      )}
+      {isIOS && !isInstalled && (
+        <div className="bottom mobile">
+          <section className="section-container">
+            Para obter a carteirinha do Go.Help no seu iPhone: clique em{" "}
+            <img src="/apple-icon.png" width="24" alt="" style={{ position: "relative", top: "5px" }} /> e adicione à
+            sua tela inicial
           </section>
-        )}
-        {isIOS && !isInstalled && (
-          <div className="bottom mobile">
-            <section className="section-container">
-              Para obter a carteirinha do Go.Help no seu iPhone: clique em{" "}
-              <img src="/apple-icon.png" width="24" alt="" style={{ position: "relative", top: "5px" }} /> e adicione à
-              sua tela inicial
-            </section>
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 }
