@@ -1,14 +1,14 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import ReactCardFlip from "react-card-flip";
-import "react-alice-carousel/lib/alice-carousel.css";
-import { useMemo } from "react";
+import Auth from "./components/Auth";
 
 function App() {
   const [isFlipped, setFlipped] = useState(false);
   const [isShadow, setShadow] = useState(true);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isInstalled, setIsInstalled] = useState(false);
+  const [unlock, setUnlock] = useState(false);
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
   useEffect(() => {
@@ -61,6 +61,9 @@ function App() {
 
   useEffect(() => {
     setShadow(false);
+    const unlocked = localStorage.getItem("unlocked");
+
+    setUnlock(unlocked);
 
     const timeoutId = setTimeout(() => {
       setShadow(true);
@@ -70,35 +73,41 @@ function App() {
   }, [isFlipped]);
 
   return (
-    <>
-      <section className="container mx-auto px-4 h-screen flex-center flex-col">
-        {}
-        <div className={`max-w-[320px] carousel rounded-box ${isShadow ? "shadow-custom transition" : ""}`}>
-          {cardData.map((card) => (
-            <div className="carousel-item w-full" key={`${card.id}-carousel`}>
-              <ReactCardFlip key={card.id} isFlipped={isFlipped} flipDirection="horizontal">
-                {/* Front side */}
-                <div
-                  className="flex justify-center bg-white min-h-[399px] w-full rounded-2xl overflow-hidden"
-                  onClick={() => setFlipped(!isFlipped)}
-                >
-                  <img src={card.backImage} className="w-full max-h-full object-cover" alt="" />
-                </div>
+    <section className="container mx-auto px-4 min-h-screen flex-center flex-col">
+      <div className="flex items-center justify-center">
+        <img src="/logo.webp" className="max-w-xs mb-10" alt="" />
+      </div>
+      <div className="flex-center flex-col h-full">
+        {!unlock ? (
+          <Auth setUnlock={setUnlock} />
+        ) : (
+          <div className={`max-w-[320px] carousel rounded-box ${isShadow ? "shadow-custom transition" : ""}`}>
+            {cardData.map((card) => (
+              <div className="carousel-item w-full" key={`${card.id}-carousel`}>
+                <ReactCardFlip key={card.id} isFlipped={isFlipped} flipDirection="horizontal">
+                  {/* Front side */}
+                  <div
+                    className="flex justify-center bg-white min-h-[399px] w-full rounded-2xl overflow-hidden"
+                    onClick={() => setFlipped(!isFlipped)}
+                  >
+                    <img src={card.backImage} className="w-full max-h-full object-cover" alt="" />
+                  </div>
 
-                {/* Back side */}
-                <div
-                  className="flex justify-center bg-white min-h-[399px] w-full rounded-2xl overflow-hidden"
-                  onClick={() => setFlipped(!isFlipped)}
-                >
-                  <img src={card.frontImage} className="w-full max-h-full object-cover" alt="" />
-                </div>
-              </ReactCardFlip>
-            </div>
-          ))}
-        </div>
-      </section>
+                  {/* Back side */}
+                  <div
+                    className="flex justify-center bg-white min-h-[399px] w-full rounded-2xl overflow-hidden"
+                    onClick={() => setFlipped(!isFlipped)}
+                  >
+                    <img src={card.frontImage} className="w-full max-h-full object-cover" alt="" />
+                  </div>
+                </ReactCardFlip>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
       {!isInstalled && !isIOS && (
-        <section>
+        <section className="hidden">
           <button onClick={handleInstallClick} className="custom-install-button">
             Instalar Go.help
           </button>
@@ -108,12 +117,11 @@ function App() {
         <div className="bottom mobile">
           <section className="section-container">
             Para obter a carteirinha do Go.Help no seu iPhone: clique em{" "}
-            <img src="/apple-icon.png" width="24" alt="" style={{ position: "relative", top: "5px" }} /> e adicione à
-            sua tela inicial
+            <img src="/apple-icon.png" width="24" alt="" className="relative top-1" /> e adicione à sua tela inicial
           </section>
         </div>
       )}
-    </>
+    </section>
   );
 }
 
