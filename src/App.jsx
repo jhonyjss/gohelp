@@ -61,7 +61,7 @@ function App() {
   return (
     <>
       <section className="container mx-auto px-4 h-screen flex-center flex-col">
-        <div className="w-64 carousel rounded-box">
+        <div className="w-64 carousel rounded-box shadow-custom">
           {cardData.map((card) => (
             <div className="carousel-item w-full" key={`${card}-carousel`}>
               <ReactCardFlip key={card.id} isFlipped={isFlipped} flipDirection="horizontal">
