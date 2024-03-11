@@ -109,13 +109,13 @@ function App() {
         )}
       </div>
 
-      {
+      {!isIOS && !isInstalled && (
         <div className="btm-nav">
           <Button className="border-4 border-green-400 flex" onClick={handleInstallClick}>
             Baixe o app no seu celular <Download />
           </Button>
         </div>
-      }
+      )}
 
       {isIOS && !isInstalled && (
         <div className="bottom mobile">
