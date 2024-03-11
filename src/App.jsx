@@ -1,7 +1,6 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import ReactCardFlip from "react-card-flip";
-import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 
 function App() {
@@ -61,7 +60,7 @@ function App() {
   return (
     <>
       <section className="container mx-auto px-4 h-screen flex-center flex-col">
-        <div className="w-64 carousel rounded-box shadow-custom">
+        <div className="max-w-[320px] carousel rounded-box shadow-custom">
           {cardData.map((card) => (
             <div className="carousel-item w-full" key={`${card}-carousel`}>
               <ReactCardFlip key={card.id} isFlipped={isFlipped} flipDirection="horizontal">
