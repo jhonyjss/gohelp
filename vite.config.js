@@ -11,7 +11,7 @@ export default defineConfig({
       includeAssets: ["favicon.ico", "apple-touch-icon.png"],
       manifest: {
         name: "Go.help",
-        short_name: "POC sobre app do go.help",
+        short_name: "GO.HELP",
         description: "My Awesome App description",
         theme_color: "#ffffff",
         icons: [

@@ -5,6 +5,10 @@ body {
   background-size: cover;
   height: 100vh;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
 
 .flex-center {
   @apply justify-center flex items-center;

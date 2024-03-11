@@ -2,6 +2,8 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import ReactCardFlip from "react-card-flip";
 import Auth from "./components/Auth";
+import { ButtonGroup, Button } from "@material-tailwind/react";
+import { Download } from "lucide-react";
 
 function App() {
   const [isFlipped, setFlipped] = useState(false);
@@ -75,7 +77,7 @@ function App() {
   return (
     <section className="container mx-auto px-4 min-h-screen flex-center flex-col">
       <div className="flex items-center justify-center">
-        <img src="/logo.webp" className="max-w-xs mb-10" alt="" />
+        <img src="/logo.webp" className="max-w-[15rem] mb-10" alt="" />
       </div>
       <div className="flex-center flex-col h-full">
         {!unlock ? (
@@ -106,13 +108,15 @@ function App() {
           </div>
         )}
       </div>
-      {!isInstalled && !isIOS && (
-        <section className="hidden">
-          <button onClick={handleInstallClick} className="custom-install-button">
-            Instalar Go.help
-          </button>
-        </section>
-      )}
+
+      {
+        <div className="btm-nav">
+          <Button className="border-4 border-green-400 flex" onClick={handleInstallClick}>
+            Baixe o app no seu celular <Download />
+          </Button>
+        </div>
+      }
+
       {isIOS && !isInstalled && (
         <div className="bottom mobile">
           <section className="section-container">
