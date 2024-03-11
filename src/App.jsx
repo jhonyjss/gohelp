@@ -1,6 +1,8 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import ReactCardFlip from "react-card-flip";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
 
 function App() {
   const [isFlipped, setFlipped] = useState(false);
@@ -50,24 +52,38 @@ function App() {
     }
   };
 
+  const cardData = [
+    { id: 1, frontImage: "/gobank_back.png", backImage: "/gobank_front.png" },
+    { id: 2, frontImage: "/america_back.png", backImage: "/america_front.png" }
+    // Add more card data as needed
+  ];
+
   return (
     <>
       <section className="container mx-auto px-4 h-screen flex-center flex-col">
-        <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-          <div
-            className="flex items-end justify-center bg-white min-h-[399px] w-full rounded-lg overflow-hidden shadow-custom"
-            onClick={() => setFlipped(!isFlipped)}
-          >
-            <img src="/america_back.png" className="w-full max-h-full object-cover" alt="" />
-          </div>
+        <div className="w-64 carousel rounded-box">
+          {cardData.map((card) => (
+            <div className="carousel-item w-full" key={`${card}-carousel`}>
+              <ReactCardFlip key={card.id} isFlipped={isFlipped} flipDirection="horizontal">
+                {/* Front side */}
+                <div
+                  className="flex justify-center bg-white min-h-[399px] w-full rounded-2xl overflow-hidden shadow-custom"
+                  onClick={() => setFlipped(!isFlipped)}
+                >
+                  <img src={card.backImage} className="w-full max-h-full object-cover" alt="" />
+                </div>
 
-          <div
-            className="flex items-end justify-center bg-white min-h-[399px] w-full rounded-lg overflow-hidden shadow-custom"
-            onClick={() => setFlipped(!isFlipped)}
-          >
-            <img src="/america_front.png" className="w-full max-h-full object-cover" alt="" />
-          </div>
-        </ReactCardFlip>
+                {/* Back side */}
+                <div
+                  className="flex justify-center bg-white min-h-[399px] w-full rounded-2xl overflow-hidden shadow-custom"
+                  onClick={() => setFlipped(!isFlipped)}
+                >
+                  <img src={card.frontImage} className="w-full max-h-full object-cover" alt="" />
+                </div>
+              </ReactCardFlip>
+            </div>
+          ))}
+        </div>
       </section>
       {!isInstalled && !isIOS && (
         <section>

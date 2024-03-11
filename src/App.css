@@ -1,5 +1,5 @@
 body {
-  background: url("/back.jpg");
+  @apply bg-gradient-to-r from-slate-50 to-indigo-100;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
