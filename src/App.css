@@ -1,8 +1,5 @@
 body {
-  @apply bg-gradient-to-r from-green-100 to-indigo-200;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: black;
   height: 100vh;
 }
 input::-webkit-outer-spin-button,
